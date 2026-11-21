@@ -40,7 +40,7 @@ function showTransactions(userId) {
     document.getElementById("modalBody").innerHTML = `<p class="empty">No transactions yet.</p>`;
   } else {
     document.getElementById("modalBody").innerHTML = `
-      <table>
+      <div class="table-wrap"><table>
         <thead><tr><th>Device(s)</th><th>Start</th><th>End</th><th>Price</th></tr></thead>
         <tbody>${mine.map(r => `
           <tr>
@@ -50,9 +50,17 @@ function showTransactions(userId) {
             <td class="cell-aside" data-label="Price">${peso(reservationTotal(r))}</td>
           </tr>`).join("")}
         </tbody>
-      </table>`;
+      </table></div>`;
   }
   modal.classList.add("open");
+  document.body.classList.add("modal-open");                          // stop the page behind from scrolling
+  document.getElementById("modalBody").scrollTop = 0;
+  document.getElementById("closeModal").focus({ preventScroll: true });
+}
+
+function closeHistory() {
+  modal.classList.remove("open");
+  document.body.classList.remove("modal-open");
 }
 
 async function deleteUser(userId) {
@@ -74,7 +82,10 @@ userBody.addEventListener("click", e => {
 });
 
 search.addEventListener("input", () => { page = 1; renderUsers(); });   // new search -> back to page 1
-document.getElementById("closeModal").addEventListener("click", () => modal.classList.remove("open"));
-modal.addEventListener("click", e => { if (e.target === modal) modal.classList.remove("open"); });
+document.getElementById("closeModal").addEventListener("click", closeHistory);
+modal.addEventListener("click", e => { if (e.target === modal) closeHistory(); });
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && modal.classList.contains("open")) closeHistory();
+});
 
 renderUsers();

@@ -1292,3 +1292,115 @@ body.modal-open {
     transform: none;
   }
 }
+
+/* Confirm dialog (scoped to .confirm-* so nothing in global.css can touch it) */
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s4);
+  background: rgba(14, 26, 34, 0.55);
+}
+.confirm-dialog {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  padding: var(--s5);
+  background: #fffcf3;
+  border: 1px solid rgba(107, 130, 147, 0.25);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(14, 26, 34, 0.12);
+}
+.confirm-dialog h3 {
+  margin: 0 0 var(--s2);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.confirm-dialog p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--muted-strong);
+}
+.confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--s2);
+  margin-top: var(--s5);
+}
+.confirm-actions button {
+  min-height: 44px;
+  padding: 0 var(--s5);
+}
+@media (max-width: 479px) {
+  .confirm-dialog { padding: var(--s4); }
+  .confirm-actions { flex-direction: column-reverse; }
+  .confirm-actions button { width: 100%; }
+}
+/* Previous Transactions dialog (scoped to .history-*) */
+.history-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s5);
+  background: rgba(14, 26, 34, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, visibility 0s linear 0.15s;
+}
+.history-overlay.open {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+.history-dialog {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 720px;
+  max-height: 90vh;
+  max-height: 90dvh;
+  overflow: hidden;
+  background: #fffcf3;
+  border: 1px solid rgba(107, 130, 147, 0.25);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(14, 26, 34, 0.12);
+}
+.history-header {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s3);
+  padding: var(--s4) var(--s5);
+  border-bottom: 1px solid rgba(107, 130, 147, 0.25);
+}
+.history-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.history-header .edit-close {
+  margin: 0 -8px 0 0;
+}
+.history-body {
+  flex: 1;
+  min-height: 0;
+  padding: var(--s5);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+@media (max-width: 639px) {
+  .history-overlay { padding: 0; align-items: stretch; }
+  .history-dialog { max-width: none; max-height: none; height: 100vh; height: 100dvh; border: 0; border-radius: 0; box-shadow: none; }
+  .history-header { padding: var(--s3) var(--s4); padding-top: calc(var(--s3) + env(safe-area-inset-top, 0px)); }
+  .history-body { padding: var(--s4); }
+}

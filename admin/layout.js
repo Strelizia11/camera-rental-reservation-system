@@ -135,23 +135,44 @@ function reservationStatus(r) {
 // Usage:  if (await confirmDialog("Delete this?", "Delete", "Keep")) { ... }
 function confirmDialog(message, okText = "Confirm", cancelText = "Cancel") {
   return new Promise(resolve => {
+    const previous = document.activeElement;
     const wrap = document.createElement("div");
-    wrap.className = "modal-backdrop open";
+    wrap.className = "confirm-overlay";
     wrap.innerHTML = `
-      <div class="modal small">
-        <h3>Please confirm</h3>
-        <p>${esc(message)}</p>
-        <div class="modal-actions">
-          <button data-answer="no">${esc(cancelText)}</button>
-          <button class="btn-danger" data-answer="yes">${esc(okText)}</button>
+      <div class="confirm-dialog" role="alertdialog" aria-modal="true" aria-labelledby="confirmTitle" aria-describedby="confirmMsg">
+        <h3 id="confirmTitle">Please confirm</h3>
+        <p id="confirmMsg">${esc(message)}</p>
+        <div class="confirm-actions">
+          <button type="button" data-answer="no">${esc(cancelText)}</button>
+          <button type="button" class="btn-danger" data-answer="yes">${esc(okText)}</button>
         </div>
       </div>`;
     document.body.appendChild(wrap);
+    document.body.classList.add("modal-open");
 
-    function close(answer) { wrap.remove(); resolve(answer); }
+    const buttons = [...wrap.querySelectorAll("button")];
+    buttons[0].focus();                                   // safest default: the cancel button
+
+    function close(answer) {
+      document.removeEventListener("keydown", onKey, true);
+      wrap.remove();
+      document.body.classList.remove("modal-open");
+      if (previous && previous.focus) previous.focus();
+      resolve(answer);
+    }
+
+    function onKey(e) {
+      if (e.key === "Escape") { e.preventDefault(); e.stopImmediatePropagation(); close(false); return; }
+      if (e.key !== "Tab") return;
+      const first = buttons[0], last = buttons[buttons.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+    document.addEventListener("keydown", onKey, true);
+
     wrap.addEventListener("click", e => {
-      if (e.target === wrap) return close(false);                 // clicked the dark background
-      const btn = e.target.closest("button");
+      if (e.target === wrap) return close(false);          // clicked the dark background
+      const btn = e.target.closest("button[data-answer]");
       if (btn) close(btn.dataset.answer === "yes");
     });
   });
