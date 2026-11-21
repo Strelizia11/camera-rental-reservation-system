@@ -24,15 +24,11 @@ function showSpecs() {
 }
 categorySelect.addEventListener("change", showSpecs);
 
-// ----- image previews -----
-function setupPreview(inputId, previewId) {
-  document.getElementById(inputId).addEventListener("change", async e => {
-    const urls = await readFiles(e.target.files);
-    document.getElementById(previewId).innerHTML = urls.map(u => `<img src="${u}" alt="preview">`).join("");
-  });
-}
-setupPreview("images", "imagesPreview");
-setupPreview("samples", "samplesPreview");
+// ----- image preview -----
+document.getElementById("images").addEventListener("change", async e => {
+  const urls = await readFiles(e.target.files);
+  document.getElementById("imagesPreview").innerHTML = urls.map(u => `<img src="${u}" alt="preview">`).join("");
+});
 
 // ----- submit -----
 form.addEventListener("submit", async e => {
@@ -46,7 +42,6 @@ form.addEventListener("submit", async e => {
     category: data.get("category"),
     pricePerDay: Number(data.get("price")),
     images: await readFiles(document.getElementById("images").files),
-    samples: await readFiles(document.getElementById("samples").files),
     specs: readSpecs(specsBox)
   };
 
@@ -56,7 +51,6 @@ form.addEventListener("submit", async e => {
   form.reset();
   showSpecs();
   document.getElementById("imagesPreview").innerHTML = "";
-  document.getElementById("samplesPreview").innerHTML = "";
   message.textContent = `${deviceName(device)} was added to the catalog.`;
   message.style.display = "block";
   window.scrollTo(0, 0);

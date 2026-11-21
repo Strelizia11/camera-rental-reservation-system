@@ -67,7 +67,6 @@ const editForm = document.getElementById("editForm");
 const editBody = document.getElementById("editBody");
 const editSpecs = document.getElementById("editSpecs");
 const editPreview = document.getElementById("editPreview");
-const editSamplePreview = document.getElementById("editSamplePreview");
 let editing = null;   // the device object being edited
 
 const FOCUSABLE = 'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [href], [tabindex]:not([tabindex="-1"])';
@@ -81,9 +80,7 @@ function openEdit(id) {
   document.getElementById("editCategory").value = editing.category;
   document.getElementById("editPrice").value = editing.pricePerDay;
   document.getElementById("editImages").value = "";
-  document.getElementById("editSamples").value = "";
   editPreview.innerHTML = thumbs(editing.images, "current image");
-  editSamplePreview.innerHTML = thumbs(editing.samples || [], "current sample shot");
   document.getElementById("editSubtitle").textContent = deviceName(editing);
   document.getElementById("editSpecTitle").textContent = specTitle(editing.category);
   renderSpecFields(editSpecs, editing.category, editing.specs || {}, false);
@@ -113,10 +110,6 @@ document.getElementById("editImages").addEventListener("change", async e => {
   const urls = await readFiles(e.target.files);
   if (urls.length) editPreview.innerHTML = thumbs(urls, "new image");
 });
-document.getElementById("editSamples").addEventListener("change", async e => {
-  const urls = await readFiles(e.target.files);
-  if (urls.length) editSamplePreview.innerHTML = thumbs(urls, "new sample shot");
-});
 
 editForm.addEventListener("submit", async e => {
   e.preventDefault();
@@ -126,8 +119,6 @@ editForm.addEventListener("submit", async e => {
 
   const files = document.getElementById("editImages").files;
   if (files.length) editing.images = await readFiles(files);       // only replace when new files were chosen
-  const samples = document.getElementById("editSamples").files;
-  if (samples.length) editing.samples = await readFiles(samples);
 
   editing.specs = readSpecs(editSpecs);
   save();
