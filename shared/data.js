@@ -1,5 +1,5 @@
 const USE_STORAGE = true;
-const STORAGE_KEY = "crs_admin_data";
+const STORAGE_KEY = "crs_admin_data_v2";
 
 const CATEGORIES = ["Camera", "Lens", "Storage", "Tripod", "Light Equipment", "Gimbal"];
 

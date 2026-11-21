@@ -1,5 +1,5 @@
 const CATALOG_PAGE = "catalog/catalog.html";
-const ADMIN_PAGE = "admin/admin.html";
+const ADMIN_PAGE = "admin/dashboard/dashboard.html";
 
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
