@@ -1,0 +1,63 @@
+renderSidebar("add-device");
+
+const form = document.getElementById("deviceForm");
+const categorySelect = document.getElementById("category");
+const specsSection = document.getElementById("specsSection");
+const specsBox = document.getElementById("specsBox");
+const message = document.getElementById("message");
+
+// ----- category dropdown -----
+categorySelect.innerHTML = `<option value="">Select category</option>` +
+  CATEGORIES.map(c => `<option>${c}</option>`).join("");
+
+// ----- build the spec inputs that match the chosen category (definitions live in specs.js) -----
+function showSpecs() {
+  const category = categorySelect.value;
+  const hasSpecs = !!SPEC_FIELDS[category];
+  specsSection.classList.toggle("hidden", !hasSpecs);
+  if (hasSpecs) {
+    document.getElementById("specsTitle").textContent = specTitle(category);
+    renderSpecFields(specsBox, category, {}, true);   // true = required fields must be filled
+  } else {
+    specsBox.innerHTML = "";
+  }
+}
+categorySelect.addEventListener("change", showSpecs);
+
+// ----- image previews -----
+function setupPreview(inputId, previewId) {
+  document.getElementById(inputId).addEventListener("change", async e => {
+    const urls = await readFiles(e.target.files);
+    document.getElementById(previewId).innerHTML = urls.map(u => `<img src="${u}" alt="preview">`).join("");
+  });
+}
+setupPreview("images", "imagesPreview");
+setupPreview("samples", "samplesPreview");
+
+// ----- submit -----
+form.addEventListener("submit", async e => {
+  e.preventDefault();   // the browser already checked every "required" field
+
+  const data = new FormData(form);
+  const device = {
+    id: Math.max(0, ...devices.map(d => d.id)) + 1,
+    brand: data.get("brand").trim(),
+    model: data.get("model").trim(),
+    category: data.get("category"),
+    pricePerDay: Number(data.get("price")),
+    images: await readFiles(document.getElementById("images").files),
+    samples: await readFiles(document.getElementById("samples").files),
+    specs: readSpecs(specsBox)
+  };
+
+  devices.push(device);
+  save();
+
+  form.reset();
+  showSpecs();
+  document.getElementById("imagesPreview").innerHTML = "";
+  document.getElementById("samplesPreview").innerHTML = "";
+  message.textContent = `${deviceName(device)} was added to the catalog.`;
+  message.style.display = "block";
+  window.scrollTo(0, 0);
+});

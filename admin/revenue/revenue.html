@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revenue | Admin</title>
+  <link rel="stylesheet" href="../../shared/global.css">
+  <link rel="stylesheet" href="../admin.css">
+</head>
+<body>
+  <div class="layout">
+    <aside id="sidebar"></aside>
+    <main>
+      <h1>Revenue</h1>
+      <div class="cards">
+        <div class="card"><div class="label">Total Revenue (all years)</div><div class="value" id="totalRevenue"></div></div>
+      </div>
+      <div class="panel"><h3>Yearly Revenue</h3><div id="yearly"></div></div>
+      <div id="yearPanels"></div>
+      <div class="panel"><h3>Revenue per Category (all years)</h3><div id="perCategory"></div></div>
+      <div class="panel"><h3>Revenue per Device (all years)</h3><div id="perDevice"></div></div>
+    </main>
+  </div>
+  <script src="../../shared/data.js"></script>
+  <script src="../layout.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

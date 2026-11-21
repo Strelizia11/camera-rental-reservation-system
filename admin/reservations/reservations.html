@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reservations | Admin</title>
+  <link rel="stylesheet" href="../../shared/global.css">
+  <link rel="stylesheet" href="../admin.css">
+</head>
+<body>
+  <div class="layout">
+    <aside id="sidebar"></aside>
+    <main>
+      <h1>Reservations</h1>
+      <div class="toolbar">
+        <select id="statusFilter">
+          <option value="all">All Status</option>
+          <option value="upcoming">Upcoming</option>
+          <option value="ongoing">Ongoing</option>
+          <option value="done">Done</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Renter</th><th>Device(s)</th><th>Start Date</th><th>End Date</th><th>Status</th><th>Total Price</th><th>Action</th></tr></thead>
+          <tbody id="resBody"></tbody>
+        </table>
+      </div>
+      <div class="pager" id="pager"></div>
+    </main>
+  </div>
+  <script src="../../shared/data.js"></script>
+  <script src="../layout.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

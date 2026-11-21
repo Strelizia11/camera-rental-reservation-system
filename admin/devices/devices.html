@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devices | Admin</title>
+  <link rel="stylesheet" href="../../shared/global.css">
+  <link rel="stylesheet" href="../admin.css">
+</head>
+<body>
+  <div class="layout">
+    <aside id="sidebar"></aside>
+    <main>
+      <h1>Devices</h1>
+      <div class="toolbar">
+        <input type="text" id="search" placeholder="Search brand or model...">
+        <select id="categoryFilter"><option value="all">All Categories</option></select>
+        <select id="sortPrice">
+          <option value="none">Sort by price</option>
+          <option value="asc">Price: Low to High</option>
+          <option value="desc">Price: High to Low</option>
+        </select>
+      </div>
+      <div class="device-grid" id="deviceGrid"></div>
+      <div class="pager" id="pager"></div>
+    </main>
+  </div>
+
+  <!-- Edit Device dialog. It sits OUTSIDE <main> on purpose, so no page layout rule can offset or clip it. -->
+  <div class="edit-overlay" id="editModal">
+    <div class="edit-dialog" role="dialog" aria-modal="true" aria-labelledby="editTitle">
+      <form class="edit-form" id="editForm">
+
+        <header class="edit-header">
+          <div>
+            <h2 id="editTitle">Edit Device</h2>
+            <p class="edit-subtitle" id="editSubtitle"></p>
+          </div>
+          <button type="button" class="edit-close" id="closeEdit" aria-label="Close">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 3l12 12M15 3L3 15"/></svg>
+          </button>
+        </header>
+
+        <div class="edit-body" id="editBody">
+          <section class="edit-section">
+            <h3>Basic Info</h3>
+            <div class="edit-grid">
+              <div class="field"><label for="editBrand">Brand</label><input id="editBrand" required></div>
+              <div class="field"><label for="editModel">Model</label><input id="editModel" required></div>
+              <div class="field"><label for="editCategory">Category</label><input id="editCategory" readonly></div>
+              <div class="field"><label for="editPrice">Price per day</label>
+                <div class="input-unit"><span class="pre">₱</span><input id="editPrice" type="number" min="1" required><span class="unit">/ day</span></div></div>
+              <div class="field"><label for="editImages">Device images</label>
+                <input id="editImages" type="file" accept="image/*" multiple>
+                <small>Optional. Choosing new files replaces the current images.</small>
+                <div class="preview" id="editPreview"></div></div>
+              <div class="field"><label for="editSamples">Sample shots</label>
+                <input id="editSamples" type="file" accept="image/*" multiple>
+                <small>Optional. Choosing new files replaces the current sample shots.</small>
+                <div class="preview" id="editSamplePreview"></div></div>
+            </div>
+          </section>
+
+          <section class="edit-section">
+            <h3 id="editSpecTitle"></h3>
+            <div class="edit-grid" id="editSpecs"></div>
+          </section>
+        </div>
+
+        <footer class="edit-footer">
+          <button type="button" id="cancelEdit">Cancel</button>
+          <button type="submit" class="btn-primary">Save Changes</button>
+        </footer>
+
+      </form>
+    </div>
+  </div>
+
+  <script src="../../shared/data.js"></script>
+  <script src="../layout.js"></script>
+  <script src="../specs.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

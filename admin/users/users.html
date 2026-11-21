@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Users | Admin</title>
+  <link rel="stylesheet" href="../../shared/global.css">
+  <link rel="stylesheet" href="../admin.css">
+</head>
+<body>
+  <div class="layout">
+    <aside id="sidebar"></aside>
+    <main>
+      <h1>Users</h1>
+      <div class="toolbar">
+        <input type="text" id="search" placeholder="Search by name or email...">
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Name</th><th>Contact Number</th><th>Email</th><th>Actions</th></tr></thead>
+          <tbody id="userBody"></tbody>
+        </table>
+      </div>
+      <div class="pager" id="pager"></div>
+
+      <div class="modal-backdrop" id="modal">
+        <div class="modal">
+          <div class="modal-head"><h3 id="modalTitle"></h3><button id="closeModal">Close</button></div>
+          <div id="modalBody"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="../../shared/data.js"></script>
+  <script src="../layout.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
