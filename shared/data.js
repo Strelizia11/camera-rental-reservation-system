@@ -1,4 +1,3 @@
-
 const USE_STORAGE = true;
 const STORAGE_KEY = "crs_admin_data";
 
@@ -211,9 +210,9 @@ function findAccountByEmail(email) {
   return getAccounts().find((a)=> a.email === clean) || null;
 }
 
-function saveAccont(email, password) {
+function saveAccount(email, password, fullName, contact) {
   const accounts = getAccounts();
-  const account = { email: String(email).trim().toLowerCase(), password, role: "customer"};
+  const account = { email: String(email).trim().toLowerCase(), password, fullName, contact, role: "customer"};
   accounts.push(account);
   writeData(ACCOUNTS_KEY, accounts);
   return account;
@@ -222,7 +221,7 @@ function saveAccont(email, password) {
 
 //SESSION FOR EACH ACCOUNTS
 function setCurrentUser(account) {
-  writeData(SESSION_KEY, {email: account.email, role: account.role});
+  writeData(SESSION_KEY, {email: account.email, role: account.role, fullName: account.fullName, contact: account.contact});
 }
 
 function getCurrentUser() {
@@ -240,7 +239,16 @@ function setSelectedDeviceId(id) {
 }
 
 function getSelectedDeviceId() {
-  return localStorage.getItem(SELECTED_DEVICE_KEY);
+  return sessionStorage.getItem("selectedDeviceId") || localStorage.getItem(SELECTED_DEVICE_KEY);
+}
+
+function getSelectedDeviceIds() {
+  try {
+    const many = JSON.parse(sessionStorage.getItem("selectedDeviceIds"));
+    if (Array.isArray(many) && many.length) return many.map(Number);
+  } catch (e) {}
+  const one = getSelectedDeviceId();
+  return one ? [Number(one)] : [];
 }
 
 function nextId(list) {
@@ -251,9 +259,13 @@ function getReservationsByDevice(deviceId) {
   return reservations.filter((r)=> r.deviceIds.includes(Number(deviceId)));
 }
 
-function addReservation(deviceId, startDate, endDate, name, contact, email) {
+function getReservationsByDevices(deviceIds) {
+  return reservations.filter((r) => r.deviceIds.some((id) => deviceIds.includes(id)));
+}
+
+function addReservation(deviceId, startDate, endDate, name, contact, email, idType) {
   const cleanEmail = String(email).trim().toLowerCase();
-  let user = user.find((u)=> u.email.toLowerCase() === cleanEmail);
+  let user = users.find((u)=> u.email.toLowerCase() === cleanEmail);
   if(!user) {
     user = {
       id: nextId(users),
@@ -267,9 +279,10 @@ function addReservation(deviceId, startDate, endDate, name, contact, email) {
   const reservation = {
     id: nextId(reservations),
     userId: user.id,
-    deviceId: [Number(deviceId)],
+    deviceIds: [].concat(deviceId).map(Number),
     start: startDate,
-    end: endDate
+    end: endDate,
+    idType
   };
   reservations.push(reservation);
   save();

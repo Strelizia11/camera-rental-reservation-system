@@ -1,0 +1,46 @@
+.landing {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 16px;
+}
+
+.brand {
+  margin: 0;
+  font-size: 4rem;
+}
+
+.tagline {
+  margin: 8px 0 24px;
+  color: #555;
+}
+
+.landing-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.switch-text {
+  margin: 16px 0 0;
+  font-size: 0.9rem;
+}
+
+.terms-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.terms-row input {
+  width: auto;
+  margin: 0;
+}
+
+.terms-row label {
+  margin: 0;
+  font-weight: normal;
+}
