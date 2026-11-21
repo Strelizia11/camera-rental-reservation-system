@@ -1,3 +1,132 @@
-.is-hidden {
-    display: none;
+/* ===== Page layout ===== */
+main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+}
+
+nav {
+    display: flex;
+    gap: 1rem;
+}
+
+/* ===== Controls ===== */
+#controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+#controls input,
+#controls select {
+    width: 100%;
+    min-height: 44px;
+    padding: 0 0.75rem;
+}
+
+#result-count {
+    display: block;
+    margin-bottom: 0.75rem;
+}
+
+/* ===== Grid ===== */
+#equipment-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+/* ===== Card ===== */
+.equipment-card {
+    display: flex;
+    -webkit-touch-callout: none;
+    user-select: none;
+}
+
+.equipment-card article {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.card-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+
+.card-body {
+    flex: 1;
+    padding: 0.75rem;
+}
+
+.card-title {
+    margin: 0.25rem 0;
+}
+
+.card-brand,
+.card-model {
+    display: block;
+}
+
+.card-actions {
+    display: flex;
+    padding: 0 0.75rem 0.75rem;
+}
+
+.card-reserve-btn {
+    width: 100%;
+    min-height: 44px;
+}
+
+/* ===== Empty state ===== */
+#empty-state {
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+/* ===== Details box (top of screen so a finger never covers it) ===== */
+#details-panel {
+    position: fixed;
+    margin: 0;
+    right: auto;
+    padding: 0.75rem;
+    z-index: 100;
+    pointer-events: none;
+}
+
+#details-panel[open] {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* ===== Wider screens ===== */
+@media (min-width: 700px) {
+    #controls {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    #controls input {
+        flex: 1;
+    }
+
+    #controls select {
+        width: auto;
+    }
 }

@@ -33,7 +33,7 @@ function getFilteredDevices() {
 }
 
 function createCard(device) {
-    const image = device.images[0] || "../shared/images/placeholder.png";
+    const image = device.images[0] ? device.images[0].replace("../../", "../") : "../shared/images/placeholder.png";
     
     return `
         <li class="equipment-card" data-id="${device.id}">
@@ -62,9 +62,9 @@ function renderCatalog() {
 
     if (list.length === 0) {
         emptyState.textContent = "No equipment found.";
-        emptyState.classList.remove("is-hidden");
+        emptyState.classList.remove("hidden");
     } else {
-        emptyState.classList.add("is-hidden");
+        emptyState.classList.add("hidden");
     }
 
     list.forEach(device => {
@@ -84,6 +84,18 @@ function filterDevice() {
 }
 
 // Desktop hovering
+let activeCard = null;
+
+function positionDetails() {
+    if (!activeCard) return;
+    const rect = activeCard.getBoundingClientRect();
+    const actions = activeCard.querySelector(".card-actions");
+    detailsPanel.style.width = rect.width + "px";
+    detailsPanel.style.height = (rect.height - actions.offsetHeight) + "px";
+    detailsPanel.style.left = rect.left + "px";
+    detailsPanel.style.top = rect.top + "px";
+}
+
 function showDetails(event) {
     const card = event.target.closest(".equipment-card");
     if (!card) return;
@@ -94,6 +106,9 @@ function showDetails(event) {
         <p>Price: ${peso(device.pricePerDay)} / day</p>
     `;
     detailsPanel.show();
+
+    activeCard = card;
+    positionDetails();
 }
 
 function hideDetails(event) {
@@ -101,6 +116,7 @@ function hideDetails(event) {
     if (!card) return;
     if (card.contains(event.relatedTarget)) return;
     detailsPanel.close();
+    activeCard = null;
 }
 
 // Long press for mobile
@@ -132,11 +148,16 @@ function selectDevice(event) {
 }
 
 function logout() {
+    logoutUser();
     window.location.href = "../index.html";
 }
 
 // Listeners
 document.addEventListener("DOMContentLoaded", function () {
+    if (!getCurrentUser()) {
+        window.location.href = "../index.html";
+        return;
+    }
     fillCategories();
     renderCatalog();
 });
@@ -146,6 +167,7 @@ if (window.matchMedia("(hover: hover)").matches) {
     equipmentGrid.addEventListener("mouseover", showDetails);
     equipmentGrid.addEventListener("mouseout", hideDetails);
 }
+window.addEventListener("scroll", positionDetails, { passive: true });
 equipmentGrid.addEventListener("touchstart", startPress);
 equipmentGrid.addEventListener("touchmove", cancelPress);
 equipmentGrid.addEventListener("touchend", cancelPress);
