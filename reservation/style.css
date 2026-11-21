@@ -47,3 +47,11 @@
     border-top: 1px solid #ccc;
   }
 }
+
+#idType {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  font-size: 1rem;
+}

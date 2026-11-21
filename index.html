@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="login/style.css">
     <script src="shared/data.js" defer></script>
     <script src="shared/ui.js" defer></script>
-    <script src="login/script.js"></script>
+    <script src="login/script.js" defer></script>
 </head>
 <body>
     <main class="landing">
@@ -24,10 +24,18 @@
         <div class="modal-box">
             <button type="button" class="modal-x" id="closeSignUp" aria-label="Close">&times;</button>
             <h2>Sign up</h2>
-            <form action="signUpForm" novalidate>
+            <form id="signUpForm" novalidate>
+                <label for="signUpName">Full name</label>
+                <input type="text" id="signUpName" autocomplete="name">
+                <div id="signUpNameError" class="errors"></div>
+
                 <label for="signUpEmail">Email</label>
                 <input type="email" id="signUpEmail" autocomplete="email">
                 <div id="signUpEmailError" class="errors"></div>
+
+                <label for="signUpContact">Contact number</label>
+                <input type="tel" id="signUpContact" placeholder="09123456789" autocomplete="tel">
+                <div id="signUpContactError" class="errors"></div>
 
                 <label for="signUpPassword">Password</label>
                 <input type="password" id="signUpPassword" autocomplete="new-password">
@@ -36,6 +44,12 @@
                 <label for="signUpConfirm">Confirm Password</label>
                 <input type="password" id="signUpConfirm" autocomplete="new-password">
                 <div id="signUpConfirmError" class="errors"></div>
+
+                <div class="terms-row">
+                    <input type="checkbox" id="signUpTerms">
+                    <label for="signUpTerms">I agree to the Terms and Agreement</label>
+                </div>
+                <div id="signUpTermsError" class="errors"></div>
 
                 <div class="modal-actions">
                     <button type="submit" id="signUpBtn" class="btn-primary">Sign up</button>
@@ -48,7 +62,7 @@
     <div id="signInModal" class="modal hidden">
         <div class="modal-box">
             <button type="button" class="modal-x" id="closeSignIn" aria-label="Close">&times;</button>
-            <h2>Sign up</h2>
+            <h2>Sign in</h2>
             <form id="signInForm" novalidate>
                 <label for="signInEmail">Email</label>
                 <input type="email" id="signInEmail" autocomplete="email">
