@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipment Catalog</title>
+    <link rel="stylesheet" href="../shared/global.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav aria-label="Main">
+            <a href="../index.html">Home</a>
+            <a href="catalog.html" aria-current="page">Catalog</a>
+            <a href="../reservation/reservation.html">Reservation</a>
+            <button type="button" id="logout-btn" class="btn">Log out</button>
+        </nav>
+    </header>
+    <main>
+        <h1>Equipment Catalog</h1>
+        <div id="controls" role="search">
+            <label for="search-input">Search equipment</label>
+            <input type="search" id="search-input" placeholder="Enter product name...">
+            <label for="category-filter">Category</label>
+            <select id="category-filter"></select>
+        </div>
+        <section id="results" aria-label="Equipment results">
+            <span id="result-count" aria-live="polite"></span>
+            <ul id="equipment-grid"></ul>
+            <div id="empty-state" class="is-hidden" role="status"></div>
+        </section>
+        <dialog id="details-panel" aria-labelledby="details-title">
+            <h2 id="details-title"></h2>
+            <div id="details-content"></div>
+        </dialog>
+    </main>
+    <script src="../shared/data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArkiLente | Reserve a Device</title>
+    <link rel="stylesheet" href="../shared/global.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="../shared/data.js" defer></script>
+    <script src="../shared/ui.js" defer></script>
+    <script src="calendar.js" defer></script>
+    <script src="reserve.js" defer></script>
+</head>
+<body>
+    <div class="layout">
+        //Dito ata Calendar: LEFT 2/3
+        <section class="calendar-section">
+            <div class="calendar-header">
+                <button type="button" id="prevMonth" aria-label="Previous month">&lt;</button>
+                <h2 id="monthLabel"></h2>
+                <button type="button" id="nextMonth" aria-label="Next month">&gt;</button>
+            </div>
+            <!-- calendar.js renders into this div -->
+            <div id="calendar"></div>
+            </div>
+        </section>
+
+        //Reservation Form: Right 1/3
+        <aside class="form-section">
+            <button type="button" id="backBtn">&larr; Back to catalog</button>
+            <h1>Reserve: <span id="deviceName"></span></h1>
+
+            <form id="reservationForm" novalidate>
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" autocomplete="name">
+                <div id="nameError" class="erros"></div>
+
+                <label for="startDate">Start date</label>
+                <input type="date" id="startDate">
+
+                <label for="endDate">End date</label>
+                <input type="date" id="endDate">
+                <div id="dateError" class="erros" role="alert"></div>
+
+                <label for="contactNumber">Contact number</label>
+                <input type="tel" id="contactNumber" placeholder="091234567" autocomplete="tel">
+                <div id="numberError" class="erros"></div>
+
+                <label for="contactEmail">Email Address</label>
+                <input type="email" id="contactEmail" autocomplete="email">
+                <div id="emailError" class="erros"></div>
+
+                <div class="modal-actions">
+                    <button type="submit" id="submitBtn" class="btn-primary">Submit reservation</button>
+                </div>
+            </form>
+        </aside>
+    </div>
+
+    //CONFIRMATION MODAL
+    <div id="confirmationModal" class="modal hidden">
+        <div class="modal-box">
+            <h2>Reservation confirmed</h2>
+            <div id="confirmationSummary"></div>
+            <div class="modal-actions">
+                <button type="button" id="closeConfirmBtn">Close</button>
+                <button type="button" id="cancelReservationBtn" class="btn-danger">Cancel Reservation</button>
+            </div>
+        </div>
+    </div>
+
+    //CANCEL MODAL
+    <div id="cancelModal" class="modal hidden">
+        <div class="modal-box">
+            <h2>Cancel reservation?</h2>
+            <p>Are you sure you want to cancel this reservation?</p>
+            <div class="modal-actions">
+                <button type="button" id="cancelYesBtn" class="btn-danger">Yes</button>
+                <button type="button" id="cancelNoBtn">No</button>
+            </div>
+        </div>
+    </div>    
+</body>
+</html>
