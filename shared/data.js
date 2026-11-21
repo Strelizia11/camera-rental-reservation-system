@@ -6,16 +6,16 @@ const CATEGORIES = ["Camera", "Lens", "Storage", "Tripod", "Light Equipment", "G
 
 let devices = [
   //camera
-  { id: 1, brand: "Sony", model: "A7 IV", category: "Camera", pricePerDay: 1800, images: [], samples: [] },
-  { id: 2, brand: "Sony", model: "A6400", category: "Camera", pricePerDay: 1100, images: [], samples: [] },
-  { id: 3, brand: "Sony", model: "ZV-E10", category: "Camera", pricePerDay: 900, images: [], samples: [] },
-  { id: 4, brand: "Canon", model: "EOS R6 Mark II", category: "Camera", pricePerDay: 2000, images: [], samples: [] },
-  { id: 5, brand: "Canon", model: "EOS 90D", category: "Camera", pricePerDay: 1200, images: [], samples: [] },
-  { id: 6, brand: "Canon", model: "PowerShot G7 X Mark III", category: "Camera", pricePerDay: 700, images: [], samples: [] },
-  { id: 7, brand: "Nikon", model: "Z6 II", category: "Camera", pricePerDay: 1700, images: [], samples: [] },
-  { id: 8, brand: "Nikon", model: "D7500", category: "Camera", pricePerDay: 1000, images: [], samples: [] },
-  { id: 9, brand: "Fujifilm", model: "X-T30 II", category: "Camera", pricePerDay: 1000, images: [], samples: [] },
-  { id: 10, brand: "Panasonic", model: "Lumix S5", category: "Camera", pricePerDay: 1500, images: [], samples: [] },
+  { id: 1, brand: "Sony", model: "A7 IV", category: "Camera", pricePerDay: 1800, images: ["../../shared/images/camera/sonya7IV.jpg"], samples: [] },
+  { id: 2, brand: "Sony", model: "A6400", category: "Camera", pricePerDay: 1100, images: ["../../shared/images/camera/a6400.jpg"], samples: [] },
+  { id: 3, brand: "Sony", model: "ZV-E10", category: "Camera", pricePerDay: 900, images: ["../../shared/images/camera/ZV-E10.jpg"], samples: [] },
+  { id: 4, brand: "Canon", model: "EOS R6 Mark II", category: "Camera", pricePerDay: 2000, images: ["../../shared/images/camera/EOS R6 Mark II.jpg"], samples: [] },
+  { id: 5, brand: "Canon", model: "EOS 90D", category: "Camera", pricePerDay: 1200, images: ["../../shared/images/camera/EOS 90D.jpg"], samples: [] },
+  { id: 6, brand: "Canon", model: "PowerShot G7 X Mark III", category: "Camera", pricePerDay: 700, images: ["../../shared/images/camera/PowerShot G7 X Mark III.jpg"], samples: [] },
+  { id: 7, brand: "Nikon", model: "Z6 II", category: "Camera", pricePerDay: 1700, images: ["../../shared/images/camera/Z6 II.jpg"], samples: [] },
+  { id: 8, brand: "Nikon", model: "D7500", category: "Camera", pricePerDay: 1000, images: ["../../shared/images/camera/D7500.jpg"], samples: [] },
+  { id: 9, brand: "Fujifilm", model: "X-T30 II", category: "Camera", pricePerDay: 1000, images: ["../../shared/images/camera/X-T30 II.jpg"], samples: [] },
+  { id: 10, brand: "Panasonic", model: "Lumix S5", category: "Camera", pricePerDay: 1500, images: ["../../shared/images/camera/Lumix S5.jpg"], samples: [] },
   //lens
   { id: 11, brand: "Sony", model: "FE 24-70mm f/2.8 GM", category: "Lens", pricePerDay: 900, images: [], samples: [] },
   { id: 12, brand: "Sony", model: "FE 50mm f/1.8", category: "Lens", pricePerDay: 350, images: [], samples: [] },
