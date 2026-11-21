@@ -83,7 +83,7 @@ function openEdit(id) {
   editPreview.innerHTML = thumbs(editing.images, "current image");
   document.getElementById("editSubtitle").textContent = deviceName(editing);
   document.getElementById("editSpecTitle").textContent = specTitle(editing.category);
-  renderSpecFields(editSpecs, editing.category, editing.specs || {}, false);
+  renderSpecFields(editSpecs, editing.category, getSpecs(editing) || {}, false);
 
   editModal.classList.add("open");
   document.body.classList.add("modal-open");                       // stop the page behind from scrolling
