@@ -19,7 +19,12 @@ function isReserved(reservations, dateKey) {
   });
 }
 
-function renderCalendar(reservations, year, month) {
+// opts (optional):
+//   mineIds    - ids of reservations the signed-in user can cancel (shown in sand, clickable)
+//   selectedId - id of the reservation currently selected for cancelling
+function renderCalendar(reservations, year, month, opts) {
+  const mineIds = (opts && opts.mineIds) || [];
+  const selectedId = opts && opts.selectedId != null ? opts.selectedId : null;
   const calendar = document.getElementById("calendar");
   const firstWeekday = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -41,13 +46,25 @@ function renderCalendar(reservations, year, month) {
     const key = toDateKey(year, month, day);
     const reserved = isReserved(reservations, key);
 
+    // Which of the user's own reservations (if any) cover this day?
+    const mine = reservations.filter(function (r) {
+      return mineIds.indexOf(r.id) !== -1 && r.start <= key && key <= r.end;
+    });
+    const pick = mine.find(function (r) { return r.id === selectedId; }) || mine[0];
+
     let classes = "calendar-day";
     if (key === todayKey) classes += " today";
     if (key < todayKey) classes += " past";
     if (reserved) classes += " reserved";
+    if (pick) classes += " mine";
+    if (pick && pick.id === selectedId) classes += " selected";
+
+    const attrs = pick
+      ? ` data-rid="${pick.id}" role="button" tabindex="0" aria-pressed="${pick.id === selectedId}" title="Select your reservation"`
+      : "";
 
     html += `
-      <div class="${classes}">
+      <div class="${classes}"${attrs}>
         <span class="day-number">${day}</span>
         ${reserved ? CAMERA_ICON_SVG : ""}
       </div>`;
