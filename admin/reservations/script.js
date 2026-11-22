@@ -1,4 +1,4 @@
-renderSidebar("reservations");
+
 
 const resBody = document.getElementById("resBody");
 const statusFilter = document.getElementById("statusFilter");
@@ -95,4 +95,8 @@ resBody.addEventListener("click", e => {
 });
 statusFilter.addEventListener("input", () => { page = 1; renderReservations(); });
 
-renderReservations();
+  function initReservations() {
+    renderSidebar("reservations");
+    renderReservations();
+  }
+  window.addEventListener("DOMContentLoaded", initReservations);

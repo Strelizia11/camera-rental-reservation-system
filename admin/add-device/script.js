@@ -1,14 +1,8 @@
-renderSidebar("add-device");
-
 const form = document.getElementById("deviceForm");
 const categorySelect = document.getElementById("category");
 const specsSection = document.getElementById("specsSection");
 const specsBox = document.getElementById("specsBox");
 const message = document.getElementById("message");
-
-// ----- category dropdown -----
-categorySelect.innerHTML = `<option value="">Select category</option>` +
-  CATEGORIES.map(c => `<option>${c}</option>`).join("");
 
 // ----- build the spec inputs that match the chosen category (definitions live in specs.js) -----
 function showSpecs() {
@@ -55,3 +49,10 @@ form.addEventListener("submit", async e => {
   message.style.display = "block";
   window.scrollTo(0, 0);
 });
+
+function initAddDevice() {
+  renderSidebar("add-device");
+  categorySelect.innerHTML = `<option value="">Select category</option>` +
+    CATEGORIES.map(c => `<option>${c}</option>`).join("");
+}
+window.addEventListener("DOMContentLoaded", initAddDevice);
