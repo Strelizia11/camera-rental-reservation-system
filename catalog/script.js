@@ -96,14 +96,47 @@ function positionDetails() {
     detailsPanel.style.top = rect.top + "px";
 }
 
+const MAX_SPECS = 4;
+const SPEC_ROWS = [
+    s => s.sensor && ["Sensor", s.sensor],
+    s => s.megapixels && ["Resolution", s.megapixels + " MP"],
+    s => s.video_res && ["Video", s.video_res + (s.video_fps ? " / " + s.video_fps + " fps" : "")],
+    s => s.focal_min && ["Focal length", s.focal_min === s.focal_max ? s.focal_min + " mm" : s.focal_min + "–" + s.focal_max + " mm"],
+    s => s.max_aperture && ["Aperture", "f/" + s.max_aperture],
+    s => s.wattage && ["Wattage", s.wattage + " W"],
+    s => s.lumens && ["Brightness", s.lumens + " lm"],
+    s => s.power && ["Power source", s.power],
+    s => s.mount && ["Mount", s.mount],
+    s => s.size && ["Capacity", s.size >= 1000 ? s.size / 1000 + " TB" : s.size + " GB"],
+    s => s.max_transfer && ["Speed", "up to " + s.max_transfer + " MB/s"],
+    s => s.card_type && s.card_type !== "Other" && ["Type", s.card_type],
+    s => s.write_speed && ["Rating", s.write_speed],
+    s => s.max_load && ["Max load", s.max_load + " kg"],
+    s => s.max_height && ["Max height", s.max_height + " cm"],
+    s => s.payload && ["Payload", s.payload + " kg"],
+    s => s.axes && ["Axes", s.axes],
+    s => s.battery && ["Battery", s.battery + " hrs"],
+    s => s.weight && ["Weight", s.weight + " kg"],
+    s => s.material && s.material !== "Other" && ["Material", s.material]
+];
+
+function specRows(device) {
+    const specs = getSpecs(device);
+    return SPEC_ROWS.map(build => build(specs)).filter(Boolean).slice(0, MAX_SPECS);
+}
+
 function showDetails(event) {
     const card = event.target.closest(".equipment-card");
     if (!card) return;
     const device = getDevice(Number(card.dataset.id));
     detailsTitle.textContent = deviceName(device);
+        const specHtml = specRows(device).map(function (row) {
+        return `<p><strong>${row[0]}</strong><span>${esc(String(row[1]))}</span></p>`;
+    }).join("");
     detailsContent.innerHTML = `
-        <p>Category: ${esc(device.category)}</p>
-        <p>Price: ${peso(device.pricePerDay)} / day</p>
+        <p><strong>Category</strong><span>${esc(device.category)}</span></p>
+        <p><strong>Price</strong><span>${peso(device.pricePerDay)} / day</span></p>
+        ${specHtml}
     `;
     detailsPanel.show();
 
