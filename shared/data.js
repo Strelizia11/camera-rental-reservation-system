@@ -294,7 +294,7 @@
     return reservations.filter((r) => r.deviceIds.some((id) => deviceIds.includes(id)));
     }
 
-    function addReservation(deviceId, startDate, endDate, name, contact, email, idType) {
+    function addReservation(deviceId, startDate, endDate, name, contact, email, idType, pickupTime, dropoffTime) {
     const cleanEmail = String(email).trim().toLowerCase();
     let user = users.find((u)=> u.email.toLowerCase() === cleanEmail);
     if(!user) {
@@ -313,6 +313,8 @@
         deviceIds: [].concat(deviceId).map(Number),
         start: startDate,
         end: endDate,
+        pickupTime,
+        dropoffTime,
         idType
     };
     reservations.push(reservation);

@@ -14,6 +14,8 @@ let lastReservationId = null;
 const nameInput = document.getElementById("fullName");
 const startInput = document.getElementById("startDate");
 const endInput = document.getElementById("endDate");
+const pickupInput = document.getElementById("pickupTime");
+const dropoffInput = document.getElementById("dropoffTime");
 const numberInput = document.getElementById("contactNumber");
 const emailInput = document.getElementById("contactEmail");
 const idTypeInput = document.getElementById("idType");
@@ -21,6 +23,8 @@ const ID_TYPES = ["PhilSys ID", "Driver's License", "Voter's ID"];
 
 const nameError = document.getElementById("nameError");
 const dateError = document.getElementById("dateError");
+const pickupError = document.getElementById("pickupError");
+const dropoffError = document.getElementById("dropoffError");
 const numberError = document.getElementById("numberError");
 const emailError = document.getElementById("emailError");
 const idError = document.getElementById("idError");
@@ -65,6 +69,8 @@ function loadReservationPage() {
   document.getElementById("nextMonth").addEventListener("click", () => changeMonth(1));
   startInput.addEventListener("change", setEndDate);
   endInput.addEventListener("change", checkAvailability);
+  pickupInput.addEventListener("input", validatePickup);
+  dropoffInput.addEventListener("input", validateDropoff);
   numberInput.addEventListener("input", validateNumber);
   emailInput.addEventListener("input", validateEmail);
   idTypeInput.addEventListener("change", validateIdType);
@@ -151,6 +157,29 @@ function validateName() {
   return true;
 }
 
+function formatTime(value) {
+  const [h, m] = value.split(":").map(Number);
+  return (h % 12 || 12) + ":" + String(m).padStart(2, "0") + " " + (h < 12 ? "AM" : "PM");
+}
+
+function validatePickup() {
+  if (!pickupInput.value) {
+    pickupError.textContent = "Please choose a pick-up time.";
+    return false;
+  }
+  pickupError.textContent = "";
+  return true;
+}
+
+function validateDropoff() {
+  if (!dropoffInput.value) {
+    dropoffError.textContent = "Please choose a drop-off time.";
+    return false;
+  }
+  dropoffError.textContent = "";
+  return true;
+}
+
 function validateNumber() {
   if (!numberRegex.test(numberInput.value.trim())) {
     numberError.textContent = "Enter a valid number, e.g. 09123456789 or +639123456789.";
@@ -189,7 +218,7 @@ function validateDates() {
 function showConfirmation(e) {
   e.preventDefault();
 
-  const results = [validateName(), validateDates(), validateNumber(), validateEmail(), validateIdType()];
+  const results = [validateName(), validateDates(), validatePickup(), validateDropoff(), validateNumber(), validateEmail(), validateIdType()];
   if (results.includes(false)) return;
 
   const name = nameInput.value.trim();
@@ -197,7 +226,7 @@ function showConfirmation(e) {
   const email = emailInput.value.trim();
   const idType = idTypeInput.value;
 
-  const saved = addReservation(currentDevices.map((d) => d.id), startInput.value, endInput.value, name, contact, email, idType);
+  const saved = addReservation(currentDevices.map((d) => d.id), startInput.value, endInput.value, name, contact, email, idType, pickupInput.value, dropoffInput.value);
   lastReservationId = saved.id;
 
   const reservation = {
@@ -209,6 +238,8 @@ function showConfirmation(e) {
     idType: idType,
     startDate: saved.start,
     endDate: saved.end,
+    pickupTime: pickupInput.value,
+    dropoffTime: dropoffInput.value,
   };
 
   const summary = document.getElementById("confirmationSummary");
@@ -217,7 +248,9 @@ function showConfirmation(e) {
     ["Device", reservation.device],
     ["Name", reservation.name],
     ["Start date", reservation.startDate],
+    ["Pick-up time", formatTime(reservation.pickupTime)],
     ["End date", reservation.endDate],
+    ["Drop-off time", formatTime(reservation.dropoffTime)],
     ["Contact number", reservation.contact],
     ["Email", reservation.email],
     ["ID type", reservation.idType],
