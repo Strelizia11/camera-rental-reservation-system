@@ -14,8 +14,15 @@ function renderSidebar(active) {
     `<a href="../${key}/${key}.html" class="${key === active ? "active" : ""}" ${key === active ? 'aria-current="page"' : ""}>${label}</a>`
   ).join("");
   document.getElementById("sidebar").innerHTML =
-    `<div class="brand"><strong>Camera Rental</strong><span>ADMIN</span></div><nav aria-label="Admin menu">${links}</nav>`;
+    `<div class="brand"><strong>Camera Rental</strong><span>ADMIN</span></div><nav aria-label="Admin menu">${links}</nav><button type="button" class="logout-btn">Log out</button>`;
+  document.querySelector("#sidebar .logout-btn").addEventListener("click", adminLogout);
   setupMobileMenu();
+}
+
+// Ends the admin session (same as the catalog's Log out) and returns to the landing page
+function adminLogout() {
+  logoutUser();
+  window.location.href = "../../index.html";
 }
 
 /* Phones and tablets: a sticky top bar with a hamburger button opens the sidebar as a drawer.

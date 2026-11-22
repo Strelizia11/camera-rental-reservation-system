@@ -52,7 +52,7 @@ function renderReservations() {
       <td data-label="Drop-off">${dateTime(r.end, r.dropoffTime)}</td>
       <td class="cell-aside" data-label="Status"><span class="status ${status}">${status[0].toUpperCase() + status.slice(1)}</span></td>
       <td class="cell-strong" data-label="Total">${peso(reservationTotal(r))}</td>
-      <td class="cell-actions ${action ? "" : "is-empty"}" data-label="Action">${action || "-"}</td>
+      <td class="cell-actions ${action ? "" : "is-empty"}" data-label="Action">${action ? `<div class="action-group">${action}</div>` : "-"}</td>
     </tr>`;
   }).join("");
 

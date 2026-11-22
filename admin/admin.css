@@ -1,25 +1,20 @@
-/* =====================================================================
-   admin.css - ONE shared stylesheet for every admin page.
-   Mobile-first: base styles are for phones, then @media (min-width) adds
-   tablet (640px) and desktop (1024px) layouts.
-   Change the look of the whole admin by editing the variables below.
-   ===================================================================== */
-
 :root {
-  /* palette */
-  --bg: #f9f2dd; /* page background (cream) */
-  --ink: #0e1a22; /* sidebar, table headers, headings, text */
-  --slate: #2c4251; /* primary buttons, image areas, active page */
-  --muted: #6b8293; /* placeholders, borders (low opacity) */
-  --accent: #dda866; /* active nav, pills, bars, focus rings */
-  --surface: #fffcf3; /* cards, tables, inputs */
-  --danger: #b5472f; /* Delete / Cancel only */
+  --bg: #f4f1de; 
+  --ink: #1d2327; 
+  --navy-900: #0d1b2a; 
+  --navy-800: #1b263b; 
+  --slate: #1b263b; 
+  --steel: #415a77; 
+  --muted: #6f8299; 
+  --accent: #e8bc86; 
+  --surface: #fffef6; 
+  --card: rgba(255, 255, 255, 0.6); 
+  --danger: #b00020;
 
-  /* derived tokens */
-  --muted-strong: #566b7c; /* small secondary text (about 5:1 on cream; --muted alone is about 3.6:1) */
-  --line: rgba(107, 130, 147, 0.25); /* thin borders instead of shadows */
-  --line-strong: rgba(107, 130, 147, 0.55); /* input borders */
-  --track: rgba(107, 130, 147, 0.18); /* bar background */
+  --muted-strong: #415a77; 
+  --line: rgba(65, 90, 119, 0.25); 
+  --line-strong: rgba(65, 90, 119, 0.55); 
+  --track: rgba(65, 90, 119, 0.18);
 
   /* spacing scale */
   --s1: 4px;
@@ -38,7 +33,7 @@
     Arial, sans-serif;
   --sidebar-w: 240px;
   --topbar-h: 56px;
-  --control-h: 44px; /* tap-friendly on phones */
+  --control-h: 44px;
 }
 @media (min-width: 640px) {
   :root {
@@ -61,7 +56,9 @@ body {
   font-family: var(--font);
   font-size: 15px;
   line-height: 1.5;
-  background: var(--bg);
+  min-height: 100vh;
+  background:#f9f6d7 ;
+  background-attachment: fixed;
   color: var(--ink);
 }
 h1,
@@ -105,7 +102,7 @@ button {
     border-color 0.15s;
 }
 button:hover {
-  background: rgba(44, 66, 81, 0.08);
+  background: rgba(27, 38, 59, 0.08);
 }
 button:disabled {
   opacity: 0.45;
@@ -117,8 +114,8 @@ button:disabled {
   color: var(--bg);
 }
 .btn-primary:hover {
-  background: var(--ink);
-  border-color: var(--ink);
+  background: var(--steel);
+  border-color: var(--steel);
 }
 .btn-danger {
   background: var(--danger);
@@ -126,8 +123,8 @@ button:disabled {
   color: #fff;
 }
 .btn-danger:hover {
-  background: #8f3622;
-  border-color: #8f3622;
+  background: #8e001a;
+  border-color: #8e001a;
 }
 .btn-small {
   padding: 0 var(--s3);
@@ -147,7 +144,7 @@ textarea {
   min-height: var(--control-h);
   padding: 0 var(--s3);
   font: inherit;
-  font-size: 16px; /* 16px stops iOS zoom-on-focus */
+  font-size: 16px; 
   color: var(--ink);
   background: var(--surface);
   border: 1px solid var(--line-strong);
@@ -221,7 +218,7 @@ input[type="file"]::file-selector-button {
   padding: 0 var(--s3);
   font-size: 14px;
   color: var(--muted-strong);
-  background: rgba(107, 130, 147, 0.12);
+  background: rgba(65, 90, 119, 0.12);
   white-space: nowrap;
 }
 
@@ -235,7 +232,7 @@ input[type="file"]::file-selector-button {
   justify-content: space-between;
   height: var(--topbar-h);
   padding: 0 var(--s4);
-  background: var(--ink);
+  background: linear-gradient(180deg, var(--navy-800), var(--navy-900));
   color: var(--bg);
 }
 .topbar .brand-name {
@@ -254,10 +251,10 @@ input[type="file"]::file-selector-button {
   height: 44px;
   padding: 0;
   color: var(--bg);
-  border-color: rgba(249, 242, 221, 0.3);
+  border-color: rgba(244, 241, 222, 0.3);
 }
 .menu-btn:hover {
-  background: var(--slate);
+  background: var(--steel);
 }
 
 #sidebar {
@@ -269,10 +266,12 @@ input[type="file"]::file-selector-button {
   width: min(var(--sidebar-w), 82vw);
   padding: var(--s5) var(--s4);
   overflow-y: auto;
-  background: var(--ink);
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, var(--navy-800), var(--navy-900));
   color: var(--bg);
   transform: translateX(-100%);
-  visibility: hidden; /* closed drawer: off-screen and not tabbable */
+  visibility: hidden; 
   transition:
     transform 0.15s ease,
     visibility 0s linear 0.15s;
@@ -286,7 +285,7 @@ body.nav-open #sidebar {
   position: fixed;
   inset: 0;
   z-index: 40;
-  background: rgba(14, 26, 34, 0.55);
+  background: rgba(13, 27, 42, 0.55);
   opacity: 0;
   visibility: hidden;
   transition:
@@ -325,7 +324,7 @@ body.nav-open {
   min-height: 44px;
   margin-bottom: 2px;
   padding: 0 var(--s3);
-  color: rgba(249, 242, 221, 0.72);
+  color: rgba(244, 241, 222, 0.72);
   text-decoration: none;
   border-radius: var(--r-ctl);
   transition:
@@ -333,13 +332,35 @@ body.nav-open {
     color 0.15s;
 }
 #sidebar nav a:hover {
-  background: rgba(249, 242, 221, 0.08);
+  background: rgba(244, 241, 222, 0.08);
   color: var(--bg);
 }
 #sidebar nav a.active {
   background: var(--accent);
-  color: var(--ink);
+  color: var(--navy-900);
   font-weight: 600;
+}
+
+/* log out button pinned to the bottom of the sidebar */
+#sidebar nav {
+  flex: 1;
+}
+#sidebar .logout-btn {
+  width: 100%;
+  margin-top: var(--s4);
+  justify-content: flex-start;
+  min-height: 44px;
+  padding: 0 var(--s3);
+  font-weight: 400;
+  color: rgba(244, 241, 222, 0.72);
+  background: transparent;
+  border: 1px solid rgba(244, 241, 222, 0.25);
+  border-radius: var(--r-ctl);
+}
+#sidebar .logout-btn:hover {
+  color: var(--bg);
+  background: rgba(244, 241, 222, 0.08);
+  border-color: rgba(244, 241, 222, 0.45);
 }
 
 /* ---------- page area ---------- */
@@ -391,7 +412,7 @@ main h1 {
 .card,
 .panel,
 .device-card {
-  background: var(--surface);
+  background: var(--card);
   border: 1px solid var(--line);
   border-radius: var(--r-card);
 }
@@ -462,7 +483,7 @@ main h1 {
 
 /* ---------- tables ---------- */
 .table-wrap {
-  background: var(--surface);
+  background: var(--card);
   border: 1px solid var(--line);
   border-radius: var(--r-card);
   overflow-x: auto;
@@ -480,7 +501,7 @@ td {
   border-bottom: 1px solid var(--line);
 }
 thead th {
-  background: var(--ink);
+  background: var(--navy-800);
   color: var(--bg);
   font-size: 13px;
   font-weight: 600;
@@ -525,12 +546,12 @@ tbody tr:last-child td {
     row-gap: var(--s1);
     margin-bottom: var(--s3);
     padding: var(--s4);
-    background: var(--surface);
+    background: var(--card);
     border: 1px solid var(--line);
     border-radius: var(--r-card);
   }
   .modal tr {
-    background: var(--bg);
+    background: rgba(65, 90, 119, 0.08);
   }
   td {
     display: block;
@@ -593,6 +614,21 @@ tbody tr:last-child td {
   }
 }
 
+/* Done / Cancel buttons in the Reservations table */
+.action-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+}
+@media (max-width: 639px) {
+  .action-group {
+    flex: 1 1 100%;
+  }
+  .action-group button {
+    flex: 1 1 140px;
+  }
+}
+
 /* ---------- pills ---------- */
 .tag,
 .status {
@@ -605,7 +641,7 @@ tbody tr:last-child td {
 }
 .tag {
   background: var(--accent);
-  color: var(--ink);
+  color: var(--navy-900);
 }
 .tag.corner {
   position: absolute;
@@ -615,15 +651,15 @@ tbody tr:last-child td {
 }
 .status.upcoming {
   background: var(--accent);
-  color: var(--ink);
+  color: var(--navy-900);
 }
 .status.ongoing {
   background: var(--slate);
   color: var(--bg);
 }
 .status.done {
-  background: rgba(107, 130, 147, 0.2);
-  color: var(--slate);
+  background: rgba(65, 90, 119, 0.2);
+  color: var(--navy-800);
 }
 
 /* ---------- device grid ---------- */
@@ -693,7 +729,7 @@ tbody tr:last-child td {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--muted-strong);
-  background: rgba(221, 168, 102, 0.18);
+  background: rgba(232, 188, 134, 0.18);
 }
 .device-name {
   display: -webkit-box;
@@ -858,7 +894,7 @@ tbody tr:last-child td {
   display: none;
   align-items: flex-end;
   justify-content: center;
-  background: rgba(14, 26, 34, 0.55);
+  background: rgba(13, 27, 42, 0.55);
 }
 .modal-backdrop.open {
   display: flex;
@@ -1080,7 +1116,7 @@ body.modal-open {
   align-items: center;
   justify-content: center;
   padding: var(--s5);
-  background: rgba(14, 26, 34, 0.55);
+  background: rgba(13, 27, 42, 0.55);
   opacity: 0;
   visibility: hidden;
   transition:
@@ -1101,10 +1137,10 @@ body.modal-open {
   max-height: 90vh;
   max-height: 90dvh;
   overflow: hidden; /* only .edit-body scrolls */
-  background: #fffcf3;
-  border: 1px solid rgba(107, 130, 147, 0.25);
+  background: #fffef6;
+  border: 1px solid rgba(65, 90, 119, 0.25);
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(14, 26, 34, 0.12);
+  box-shadow: 0 8px 24px rgba(13, 27, 42, 0.12);
   transform: scale(0.98);
   transition: transform 0.15s ease;
 }
@@ -1125,7 +1161,7 @@ body.modal-open {
   justify-content: space-between;
   gap: var(--s3);
   padding: var(--s4) var(--s5);
-  border-bottom: 1px solid rgba(107, 130, 147, 0.25);
+  border-bottom: 1px solid rgba(65, 90, 119, 0.25);
 }
 .edit-header h2 {
   font-size: 18px;
@@ -1151,7 +1187,7 @@ body.modal-open {
 }
 .edit-close:hover {
   color: var(--ink);
-  background: rgba(107, 130, 147, 0.12);
+  background: rgba(65, 90, 119, 0.12);
 }
 
 .edit-body {
@@ -1170,7 +1206,7 @@ body.modal-open {
 .edit-section + .edit-section {
   margin-top: var(--s5);
   padding-top: var(--s4);
-  border-top: 1px solid rgba(107, 130, 147, 0.25);
+  border-top: 1px solid rgba(65, 90, 119, 0.25);
 }
 .edit-grid {
   display: grid;
@@ -1195,28 +1231,28 @@ body.modal-open {
 .edit-dialog input:not([type="checkbox"]),
 .edit-dialog select {
   min-height: 44px;
-  border-color: rgba(107, 130, 147, 0.4);
+  border-color: rgba(65, 90, 119, 0.4);
 }
 .edit-dialog input[readonly] {
-  background: rgba(107, 130, 147, 0.08);
+  background: rgba(65, 90, 119, 0.08);
   color: var(--muted-strong);
 }
 .edit-dialog .input-unit {
   min-height: 44px;
-  border-color: rgba(107, 130, 147, 0.4);
+  border-color: rgba(65, 90, 119, 0.4);
 }
 .edit-dialog .input-unit input {
   min-height: 0;
 }
 .edit-dialog .input-unit .pre,
 .edit-dialog .input-unit .unit {
-  background: #f9f2dd;
+  background: #f4f1de;
 }
 .edit-dialog .input-unit .pre {
-  border-right: 1px solid rgba(107, 130, 147, 0.25);
+  border-right: 1px solid rgba(65, 90, 119, 0.25);
 }
 .edit-dialog .input-unit .unit {
-  border-left: 1px solid rgba(107, 130, 147, 0.25);
+  border-left: 1px solid rgba(65, 90, 119, 0.25);
 }
 .edit-dialog .pair-row {
   flex-wrap: nowrap;
@@ -1239,8 +1275,8 @@ body.modal-open {
   justify-content: flex-end;
   gap: var(--s3);
   padding: var(--s4) var(--s5);
-  background: #fffcf3;
-  border-top: 1px solid rgba(107, 130, 147, 0.25);
+  background: #fffef6;
+  border-top: 1px solid rgba(65, 90, 119, 0.25);
 }
 .edit-footer button {
   min-height: 44px;
@@ -1302,7 +1338,7 @@ body.modal-open {
   align-items: center;
   justify-content: center;
   padding: var(--s4);
-  background: rgba(14, 26, 34, 0.55);
+  background: rgba(13, 27, 42, 0.55);
 }
 .confirm-dialog {
   display: block;
@@ -1310,10 +1346,10 @@ body.modal-open {
   max-width: 420px;
   height: auto;
   padding: var(--s5);
-  background: #fffcf3;
-  border: 1px solid rgba(107, 130, 147, 0.25);
+  background: #fffef6;
+  border: 1px solid rgba(65, 90, 119, 0.25);
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(14, 26, 34, 0.12);
+  box-shadow: 0 8px 24px rgba(13, 27, 42, 0.12);
 }
 .confirm-dialog h3 {
   margin: 0 0 var(--s2);
@@ -1357,7 +1393,7 @@ body.modal-open {
   align-items: center;
   justify-content: center;
   padding: var(--s5);
-  background: rgba(14, 26, 34, 0.55);
+  background: rgba(13, 27, 42, 0.55);
   opacity: 0;
   visibility: hidden;
   transition:
@@ -1377,10 +1413,10 @@ body.modal-open {
   max-height: 90vh;
   max-height: 90dvh;
   overflow: hidden;
-  background: #fffcf3;
-  border: 1px solid rgba(107, 130, 147, 0.25);
+  background: #fffef6;
+  border: 1px solid rgba(65, 90, 119, 0.25);
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(14, 26, 34, 0.12);
+  box-shadow: 0 8px 24px rgba(13, 27, 42, 0.12);
 }
 .history-header {
   flex: none;
@@ -1389,7 +1425,7 @@ body.modal-open {
   justify-content: space-between;
   gap: var(--s3);
   padding: var(--s4) var(--s5);
-  border-bottom: 1px solid rgba(107, 130, 147, 0.25);
+  border-bottom: 1px solid rgba(65, 90, 119, 0.25);
 }
 .history-header h2 {
   font-size: 18px;
@@ -1454,7 +1490,7 @@ body.modal-open {
 }
 .tabs button.tab:hover {
   color: var(--ink);
-  background: rgba(107, 130, 147, 0.08);
+  background: rgba(65, 90, 119, 0.08);
 }
 .tabs button.tab[aria-selected="true"] {
   color: var(--ink);
@@ -1464,6 +1500,6 @@ body.modal-open {
   display: none;
 }
 .status.pending {
-  background: rgba(181, 71, 47, 0.15);
+  background: rgba(176, 0, 32, 0.15);
   color: var(--danger);
 }
