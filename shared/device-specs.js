@@ -1,7 +1,3 @@
-/* device-specs.js - spec sheet for the devices that ship with the catalog.
-   Keys are the full device name (brand + model). The field names match specs.js.
-   The Edit pop-up uses these values to pre-fill the form until the admin saves their own. */
-
 const DEVICE_SPECS = {
   /* ---------- cameras ---------- */
   "Sony A7 IV": { sensor: "Full Frame", megapixels: 33, type: "Mirrorless", stabilization: "IBIS", iso_min: 100, iso_max: 51200, shutter_fast: 8000, shutter_slow: 30, af_type: "Hybrid", af_points: 759, video_res: "4K", video_fps: 120 },
@@ -59,10 +55,6 @@ const DEVICE_SPECS = {
   "Zhiyun Weebill 3": { axes: "3-axis", payload: 3, torque: 1.5, responsiveness: "Fast", weight: 0.99, battery: 14, grip: "Single-hand grip + tripod mount", camera_control: "Bluetooth and USB-C cable", modes: "Pan Follow, Pan & Tilt Follow, Lock, FPV, Sport, Portrait", additional: "Built-in LED fill light, tripod mount, OLED touchscreen, ZY Cami app support." }
 };
 
-/* The specs to show for a device:
-   1) the specs the admin saved on the device itself (once they have pressed Save Changes), otherwise
-   2) the built-in spec sheet above, otherwise
-   3) an empty form. */
 function getSpecs(device) {
   if (device.specs && Object.keys(device.specs).length > 0) return device.specs;
   return DEVICE_SPECS[deviceName(device)] || {};

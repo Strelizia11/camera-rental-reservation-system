@@ -1338,9 +1338,15 @@ body.modal-open {
   padding: 0 var(--s5);
 }
 @media (max-width: 479px) {
-  .confirm-dialog { padding: var(--s4); }
-  .confirm-actions { flex-direction: column-reverse; }
-  .confirm-actions button { width: 100%; }
+  .confirm-dialog {
+    padding: var(--s4);
+  }
+  .confirm-actions {
+    flex-direction: column-reverse;
+  }
+  .confirm-actions button {
+    width: 100%;
+  }
 }
 /* Previous Transactions dialog (scoped to .history-*) */
 .history-overlay {
@@ -1354,7 +1360,9 @@ body.modal-open {
   background: rgba(14, 26, 34, 0.55);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.15s ease, visibility 0s linear 0.15s;
+  transition:
+    opacity 0.15s ease,
+    visibility 0s linear 0.15s;
 }
 .history-overlay.open {
   opacity: 1;
@@ -1399,8 +1407,59 @@ body.modal-open {
   overscroll-behavior: contain;
 }
 @media (max-width: 639px) {
-  .history-overlay { padding: 0; align-items: stretch; }
-  .history-dialog { max-width: none; max-height: none; height: 100vh; height: 100dvh; border: 0; border-radius: 0; box-shadow: none; }
-  .history-header { padding: var(--s3) var(--s4); padding-top: calc(var(--s3) + env(safe-area-inset-top, 0px)); }
-  .history-body { padding: var(--s4); }
+  .history-overlay {
+    padding: 0;
+    align-items: stretch;
+  }
+  .history-dialog {
+    max-width: none;
+    max-height: none;
+    height: 100vh;
+    height: 100dvh;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .history-header {
+    padding: var(--s3) var(--s4);
+    padding-top: calc(var(--s3) + env(safe-area-inset-top, 0px));
+  }
+  .history-body {
+    padding: var(--s4);
+  }
+}
+
+/* ---------- tabs (Revenue page) ---------- */
+.tabs {
+  display: flex;
+  gap: var(--s1);
+  margin-bottom: var(--s5);
+  overflow-x: auto; /* on narrow phones the tabs scroll sideways instead of wrapping */
+  border-bottom: 1px solid var(--line);
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+.tabs button.tab {
+  flex: none;
+  min-height: 44px;
+  padding: 0 var(--s4);
+  color: var(--muted-strong);
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  white-space: nowrap;
+}
+.tabs button.tab:hover {
+  color: var(--ink);
+  background: rgba(107, 130, 147, 0.08);
+}
+.tabs button.tab[aria-selected="true"] {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+}
+.tab-panel[hidden] {
+  display: none;
 }
