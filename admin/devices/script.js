@@ -1,5 +1,3 @@
-renderSidebar("devices");
-
 const grid = document.getElementById("deviceGrid");
 const search = document.getElementById("search");
 const categoryFilter = document.getElementById("categoryFilter");
@@ -8,7 +6,6 @@ let page = 1;
 
 const ICONS = { "Camera": "📷", "Lens": "🔭", "Storage": "💾", "Tripod": "📐", "Light Equipment": "💡", "Gimbal": "🎥" };
 
-CATEGORIES.forEach(c => categoryFilter.insertAdjacentHTML("beforeend", `<option value="${c}">${c}</option>`));
 
 function renderDevices() {
   const q = search.value.trim().toLowerCase();
@@ -161,4 +158,10 @@ grid.addEventListener("click", e => {
 
 // changing search / filter / sort starts again from page 1
 [search, categoryFilter, sortPrice].forEach(el => el.addEventListener("input", () => { page = 1; renderDevices(); }));
-renderDevices();
+
+function initDevices() {
+  renderSidebar("devices");
+  CATEGORIES.forEach(c => categoryFilter.insertAdjacentHTML("beforeend", `<option value="${c}">${c}</option>`));
+  renderDevices();
+}
+window.addEventListener("DOMContentLoaded", initDevices);

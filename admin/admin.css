@@ -1463,3 +1463,7 @@ body.modal-open {
 .tab-panel[hidden] {
   display: none;
 }
+.status.pending {
+  background: rgba(181, 71, 47, 0.15);
+  color: var(--danger);
+}

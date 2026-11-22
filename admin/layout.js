@@ -125,15 +125,16 @@ function todayStr() {
 }
 // YYYY-MM-DD strings compare correctly with < and >, so no Date math is needed
 function reservationStatus(r) {
+  if (r.status === "done") return "done";     // the admin confirmed the device came back
   const today = todayStr();
-  if (r.end < today) return "done";
+  if (r.end < today) return "pending";        // past the end date, return not confirmed yet
   if (r.start > today) return "upcoming";
   return "ongoing";
 }
 
 /* ---------- confirmation pop-up ---------- */
 // Usage:  if (await confirmDialog("Delete this?", "Delete", "Keep")) { ... }
-function confirmDialog(message, okText = "Confirm", cancelText = "Cancel") {
+function confirmDialog(message, okText = "Confirm", cancelText = "Cancel", danger=true) {
   return new Promise(resolve => {
     const previous = document.activeElement;
     const wrap = document.createElement("div");
@@ -144,7 +145,8 @@ function confirmDialog(message, okText = "Confirm", cancelText = "Cancel") {
         <p id="confirmMsg">${esc(message)}</p>
         <div class="confirm-actions">
           <button type="button" data-answer="no">${esc(cancelText)}</button>
-          <button type="button" class="btn-danger" data-answer="yes">${esc(okText)}</button>
+          <button type="button" class="${danger ? "btn-danger" : "btn-primary"}" data-answer="yes">${esc(okText)}</button>
+          
         </div>
       </div>`;
     document.body.appendChild(wrap);
