@@ -1,26 +1,145 @@
+@font-face {
+  font-family: "Phenix American";
+  src: local("Phenix American"), url("../shared/fonts/PhenixAmerican.ttf") format("truetype");
+  font-display: swap;
+}
+
+:root {
+  --cream: #f9f6d7;
+  --sand: #e8bc86;
+  --slate: #384349;
+  --mist: #c8d1d9;
+  --ink: #1d2327;
+}
+
+body {
+  background: linear-gradient(271deg,rgba(255, 255, 255, 1) 0%, rgba(249, 246, 215, 1) 35%, rgba(255, 227, 194, 1) 72%, rgba(232, 188, 134, 1) 100%);
+  color: var(--ink);
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
 .landing {
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: clamp(32px, 6vw, 96px);
+  padding: 32px clamp(16px, 5vw, 80px);
+}
+
+.landing-art {
+  --gap: 0.8cqw;                 
+  container-type: inline-size;   
+  position: relative;
+  flex: 0 1 700px;
+  aspect-ratio: 1 / 0.95;
+  min-width: 0;
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  overflow: hidden;
+  width: var(--s);
+  aspect-ratio: 1;
+  left: var(--x);
+  top: var(--y);
+}
+
+.circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 50%;
+}
+
+/* placeholders for the landing art*/
+.circle-1 {
+  --s: 66cqw; --x: 0cqw; --y: 0cqw;
+  background: var(--sand); z-index: 1;
+  -webkit-mask-image:
+    radial-gradient(circle at 72cqw 41.3cqw, transparent calc(28cqw + var(--gap)), #000 calc(28cqw + var(--gap) + .5px)),
+    radial-gradient(circle at 45cqw 72cqw,   transparent calc(23cqw + var(--gap)), #000 calc(23cqw + var(--gap) + .5px));
+  mask-image:
+    radial-gradient(circle at 72cqw 41.3cqw, transparent calc(28cqw + var(--gap)), #000 calc(28cqw + var(--gap) + .5px)),
+    radial-gradient(circle at 45cqw 72cqw,   transparent calc(23cqw + var(--gap)), #000 calc(23cqw + var(--gap) + .5px));
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+.circle-2 {
+  --s: 56cqw; --x: 44cqw; --y: 13.3cqw;
+  background: var(--mist); z-index: 2;
+  -webkit-mask-image: radial-gradient(circle at 1cqw 58.7cqw, transparent calc(23cqw + var(--gap)), #000 calc(23cqw + var(--gap) + .5px));
+  mask-image:         radial-gradient(circle at 1cqw 58.7cqw, transparent calc(23cqw + var(--gap)), #000 calc(23cqw + var(--gap) + .5px));
+}
+
+.circle-3 {
+  --s: 46cqw; --x: 22cqw; --y: 49cqw;
+  background: var(--slate); z-index: 3;
+}
+
+.landing-content {
+  flex: 0 1 auto;
   text-align: center;
-  padding: 16px;
 }
 
 .brand {
-  margin: 0;
-  font-size: 4rem;
+  margin: 0px;
+  font-family: "Phenix American", "Bebas Neue", Impact, "Arial Narrow", sans-serif;
+  font-weight: 500;
+  font-size: clamp(7rem, 18vw, 16rem);
+  line-height: 0.9;
+  color: var(--ink);
+}
+
+.baybayin {
+  margin: 0 0 16px;
+  line-height: 1.1;
+  font-family:"Noto Sans Tagalog", "Segoe UI Historic", sans-serif;
+  font-size: clamp(3.2rem, 6.4vw, 5.2rem);
+  color: var(--ink);
 }
 
 .tagline {
-  margin: 8px 0 24px;
-  color: #555;
+  margin: 0 0 24px;
+  font-family:"Segoe UI", system-ui, sans-serif;
+  font-size: clamp(1rem, 2vw, 1.6rem);
+  color: var(--ink);
+  opacity: 0.7;
 }
 
 .landing-buttons {
   display: flex;
+  justify-content: center;
   gap: 12px;
+}
+
+.landing-buttons button {
+  font-family:"Segoe UI", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 14px 32px;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  background: var(--mist);
+  color: var(--ink);
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.landing-buttons button.btn-primary {
+  background: var(--slate);
+  color: var(--cream);
+}
+
+.landing-buttons button:hover { transform: translateY(-1px); filter: brightness(1.06); }
+.landing-buttons button:focus-visible { outline: 3px solid var(--sand); outline-offset: 2px; }
+
+@media (max-width: 800px) {
+  .landing { flex-direction: column; justify-content: center; gap: 24px; }
+  .landing-art { flex: none; width: min(100%, 420px); }
 }
 
 .switch-text {
