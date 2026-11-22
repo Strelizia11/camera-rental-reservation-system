@@ -10,13 +10,12 @@
 <body>
     <header>
         <nav aria-label="Main">
-            <a href="../index.html">Home</a>
-            <a href="catalog.html" aria-current="page">Catalog</a>
+            <a href="../reservation/reservation.html">Reservations</a>
             <button type="button" id="logout-btn" class="btn">Log out</button>
         </nav>
     </header>
     <main>
-        <h1>Equipment Catalog</h1>
+        <h1><span class="eyebrow">Browse</span>Equipment Catalog</h1>
         <div id="controls" role="search">
             <label for="search-input">Search equipment</label>
             <input type="search" id="search-input" placeholder="Enter product name...">
@@ -34,6 +33,7 @@
         </dialog>
     </main>
     <script src="../shared/data.js"></script>
+    <script src="../shared/device-specs.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
