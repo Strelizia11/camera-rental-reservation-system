@@ -15,54 +15,88 @@
     <div class="layout">
         <section class="calendar-section">
             <div class="calendar-header">
-                <button type="button" id="prevMonth" aria-label="Previous month">&lt;</button>
-                <h2 id="monthLabel"></h2>
-                <button type="button" id="nextMonth" aria-label="Next month">&gt;</button>
+                <div class="calendar-title">
+                    <p class="eyebrow">Availability</p>
+                    <h2 id="monthLabel"></h2>
+                </div>
+                <div class="calendar-nav">
+                    <button type="button" id="prevMonth" aria-label="Previous month">&lt;</button>
+                    <button type="button" id="nextMonth" aria-label="Next month">&gt;</button>
+                </div>
             </div>
+
             <!-- calendar.js renders into this div -->
-                <div id="calendar"></div>
+            <div id="calendar"></div>
+
+            <div class="calendar-legend" aria-hidden="true">
+                <span><i class="dot dot-free"></i>Available</span>
+                <span><i class="dot dot-reserved"></i>Reserved</span>
+                <span><i class="dot dot-today"></i>Today</span>
+            </div>
         </section>
 
         <aside class="form-section">
             <button type="button" id="backBtn">&larr; Back to catalog</button>
-            <h1>Reserve: <span id="deviceName"></span></h1>
+            <h1>
+                <span class="eyebrow">Reserve</span>
+                <span id="deviceName" class="device-name"></span>
+            </h1>
 
             <form id="reservationForm" novalidate>
-                <label for="fullName">Full Name</label>
-                <input type="text" id="fullName" autocomplete="name" readonly>
-                <div id="nameError" class="errors"></div>
+                <div class="field">
+                    <label for="fullName">Full name</label>
+                    <input type="text" id="fullName" autocomplete="name" readonly>
+                    <div id="nameError" class="errors"></div>
+                </div>
 
-                <label for="startDate">Start date</label>
-                <input type="date" id="startDate">
+                <div class="row row-dates">
+                    <div class="field">
+                        <label for="startDate">Pick-up date</label>
+                        <input type="date" id="startDate">
+                    </div>
+                    <div class="field">
+                        <label for="pickupTime">Time</label>
+                        <input type="time" id="pickupTime">
+                    </div>
+                    <div id="pickupError" class="errors"></div>
+                </div>
 
-                <label for="pickupTime">Pick-up time</label>
-                <input type="time" id="pickupTime">
-                <div id="pickupError" class="errors"></div>
+                <div class="row row-dates">
+                    <div class="field">
+                        <label for="endDate">Return date</label>
+                        <input type="date" id="endDate">
+                    </div>
+                    <div class="field">
+                        <label for="dropoffTime">Time</label>
+                        <input type="time" id="dropoffTime">
+                    </div>
+                    <div id="dropoffError" class="errors"></div>
+                    <div id="dateError" class="errors" role="alert"></div>
+                </div>
 
-                <label for="endDate">End date</label>
-                <input type="date" id="endDate">
+                <div class="row">
+                    <div class="field">
+                        <label for="contactNumber">Contact number</label>
+                        <input type="tel" id="contactNumber" placeholder="09123456789 or +639123456789" autocomplete="tel">
+                    </div>
+                    <div class="field">
+                        <label for="idType">Type of ID</label>
+                        <select id="idType">
+                            <option value="">Select ID type</option>
+                            <option value="PhilSys ID">PhilSys ID</option>
+                            <option value="Driver's License">Driver's License</option>
+                            <option value="Voter's ID">Voter's ID</option>
+                        </select>
+                    </div>
+                    <div id="numberError" class="errors"></div>
+                    <div id="idError" class="errors"></div>
+                </div>
 
-                <label for="dropoffTime">Drop-off time</label>
-                <input type="time" id="dropoffTime">
-                <div id="dropoffError" class="errors"></div>
-                <div id="dateError" class="errors" role="alert"></div>
-
-                <label for="contactNumber">Contact number</label>
-                <input type="tel" id="contactNumber" placeholder="09123456789" autocomplete="tel">
-                <div id="numberError" class="errors"></div>
-
-                <label for="contactEmail">Email Address</label>
-                <input type="email" id="contactEmail" autocomplete="email">
-                <div id="emailError" class="errors"></div>
-
-                <label for="idType">Type of ID</label>
-                <select id="idType">
-                    <option value="">Select ID type</option>
-                    <option value="PhilSys ID">PhilSys ID</option>
-                    <option value="Driver's License">Driver's License</option>
-                    <option value="Voter's ID">Voter's ID</option>
-                </select>
-                <div id="idError" class="errors"></div>
+                <div class="field">
+                    <label for="contactEmail">Email address</label>
+                    <input type="email" id="contactEmail" autocomplete="email" placeholder="user@email.com">
+                    <div id="emailError" class="errors"></div>
+                </div>
 
                 <div class="modal-actions">
                     <button type="submit" id="submitBtn" class="btn-primary">Submit reservation</button>
@@ -91,6 +125,6 @@
                 <button type="button" id="cancelNoBtn">No</button>
             </div>
         </div>
-    </div>    
+    </div>
 </body>
 </html>
