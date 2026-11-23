@@ -323,6 +323,25 @@ main h1 .eyebrow {
 }
 
 @media (max-width: 520px) {
+  header {
+    justify-content: stretch;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  nav {
+    flex-wrap: nowrap;
+    gap: 6px;
+    width: 100%;
+  }
+  nav a,
+  nav .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+    min-height: 38px;
+    padding: 0 10px;
+    font-size: 0.78rem;
+    white-space: nowrap;
+  }
   .reservation-card article {
     padding: 16px;
   }
