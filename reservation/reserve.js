@@ -20,7 +20,7 @@ const dropoffInput = document.getElementById("dropoffTime");
 const numberInput = document.getElementById("contactNumber");
 const emailInput = document.getElementById("contactEmail");
 const idTypeInput = document.getElementById("idType");
-const ID_TYPES = ["PhilSys ID", "Driver's License", "Voter's ID"];
+const ID_TYPES = ["PhilSys ID", "Driver's License", "Voter's ID", "PRC ID", "Senior Citizen ID", "PWD ID", "SSS ID"];
 
 const nameError = document.getElementById("nameError");
 const dateError = document.getElementById("dateError");
