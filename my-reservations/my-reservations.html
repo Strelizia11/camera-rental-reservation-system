@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Reservations</title>
+    <link rel="stylesheet" href="../shared/global.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav aria-label="Main">
+            <a href="../catalog/catalog.html">Catalog</a>
+            <a href="my-reservations.html" aria-current="page">My Reservations</a>
+            <button type="button" id="logout-btn" class="btn">Log out</button>
+        </nav>
+    </header>
+
+    <main>
+        <h1><span class="eyebrow">Your bookings</span>My Reservations</h1>
+
+        <div id="controls">
+            <label for="status-filter">Show</label>
+            <select id="status-filter">
+                <option value="all">All reservations</option>
+                <option value="upcoming">Upcoming</option>
+                <option value="ongoing">Ongoing</option>
+                <option value="pending">Pending return</option>
+                <option value="done">Done</option>
+            </select>
+            <span id="result-count" aria-live="polite"></span>
+        </div>
+
+        <div id="message" class="notice hidden" role="status"></div>
+
+        <ul id="reservation-list"></ul>
+
+        <div id="empty-state" class="hidden" role="status">
+            <p id="empty-text"></p>
+            <a class="btn-link" href="../catalog/catalog.html">Browse the catalog</a>
+        </div>
+    </main>
+
+    <div id="cancelModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="cancelTitle">
+        <div class="modal-box">
+            <h2 id="cancelTitle">Cancel reservation?</h2>
+            <p class="modal-note">This will remove the reservation. This cannot be undone.</p>
+            <div id="cancelSummary" class="summary"></div>
+            <div class="modal-actions">
+                <button type="button" id="cancelNoBtn">Keep it</button>
+                <button type="button" id="cancelYesBtn" class="btn-danger">Yes, cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../shared/data.js"></script>
+    <script src="../shared/ui.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

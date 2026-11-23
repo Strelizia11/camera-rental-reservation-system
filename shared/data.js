@@ -183,6 +183,30 @@ reservations.forEach(r => {
   delete r.returned;
 });
 
+// Same renter + same dates + same pick-up/drop-off times (and not finished yet) = ONE reservation with many devices.
+function sameBooking(a, b) {
+  return a.userId === b.userId && a.start === b.start && a.end === b.end &&
+         (a.pickupTime || "") === (b.pickupTime || "") && (a.dropoffTime || "") === (b.dropoffTime || "") &&
+         a.status === "booked" && b.status === "booked";
+}
+
+// Cleans up data saved before this rule existed: split rows of the same booking are joined into one.
+(function mergeSplitReservations() {
+  let changed = false;
+  const kept = [];
+  reservations.forEach(r => {
+    const first = kept.find(k => sameBooking(k, r));
+    if (first) {
+      r.deviceIds.forEach(id => { if (!first.deviceIds.includes(id)) first.deviceIds.push(id); });
+      if (!first.idType && r.idType) first.idType = r.idType;
+      changed = true;
+    } else {
+      kept.push(r);
+    }
+  });
+  if (changed) { reservations = kept; save(); }
+})();
+
 
 function getDevice(id) { return devices.find(d => d.id === id); }
 function getUser(id)   { return users.find(u => u.id === id); }
@@ -317,6 +341,18 @@ function addReservation(deviceId, startDate, endDate, name, contact, email, idTy
       email: cleanEmail
     };
     users.push(user);
+  }
+
+  const newIds = [].concat(deviceId).map(Number);
+
+  // Same renter, same dates and times as an existing booking -> add the device(s) to that booking
+  const existing = reservations.find((r) => sameBooking(r, {
+    userId: user.id, start: startDate, end: endDate, pickupTime, dropoffTime, status: "booked"
+  }));
+  if (existing) {
+    newIds.forEach((id) => { if (!existing.deviceIds.includes(id)) existing.deviceIds.push(id); });
+    save();
+    return existing;
   }
 
   const reservation = {
