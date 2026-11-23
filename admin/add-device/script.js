@@ -4,7 +4,7 @@ const specsSection = document.getElementById("specsSection");
 const specsBox = document.getElementById("specsBox");
 const message = document.getElementById("message");
 
-// ----- build the spec inputs that match the chosen category (definitions live in specs.js) -----
+//builds the specs 
 function showSpecs() {
   const category = categorySelect.value;
   const hasSpecs = !!SPEC_FIELDS[category];

@@ -1,5 +1,3 @@
-
-
 const resBody = document.getElementById("resBody");
 const statusFilter = document.getElementById("statusFilter");
 let page = 1;
@@ -26,7 +24,7 @@ function renderReservations() {
   page = clampPage(page, list.length);
 
   if (list.length === 0) {
-    resBody.innerHTML = `<tr><td colspan="7" class="empty">No reservations found.</td></tr>`;
+    resBody.innerHTML = `<tr><td colspan="8" class="empty">No reservations found.</td></tr>`;
     renderPager("pager", 0, 1, () => {});
     return;
   }
@@ -47,6 +45,7 @@ function renderReservations() {
 
     return `<tr>
       <td class="cell-title" data-label="Renter">${user ? esc(user.name) : "(deleted user)"}</td>
+      <td data-label="ID Type">${r.idType ? esc(r.idType) : "-"}</td>
       <td class="cell-list" data-label="Devices">${names}</td>
       <td data-label="Pick-up">${dateTime(r.start, r.pickupTime)}</td>
       <td data-label="Drop-off">${dateTime(r.end, r.dropoffTime)}</td>
